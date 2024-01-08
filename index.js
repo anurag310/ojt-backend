@@ -8,7 +8,7 @@ const { register, login } = require("./src/Controllers/authentication")
 const server = express()
 
 
-server.use(json())
+server.use( express.json())
 
 server.get("/",(req,res)=>{
 
@@ -32,7 +32,7 @@ server.post("/login",login)
 server.listen("3000")
 
 // for connecting database 
-mongoose.connect("mongodb://localhost:27017").then(()=>{
+mongoose.connect("mongodb://localhost:27017/ABC").then(()=>{
     console.log("Database Connected")
 }).catch((error)=>{
     console.log(error)
