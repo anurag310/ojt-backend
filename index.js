@@ -2,14 +2,14 @@ const express = require("express")
 const { default: mongoose } = require("mongoose")
 const user = require("./src/models/user")
 const { register, login } = require("./src/Controllers/authentication")
-
+const  cors =require("cors")
 
 
 const server = express()
 
 
 server.use( express.json())
-
+server.use(cors())
 server.get("/",(req,res)=>{
 
 
