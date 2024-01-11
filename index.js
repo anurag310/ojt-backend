@@ -1,8 +1,9 @@
 const express = require("express")
 const { default: mongoose } = require("mongoose")
 const user = require("./src/models/user")
-const { register, login } = require("./src/Controllers/authentication")
+const { register, login, findUser } = require("./src/Controllers/authentication")
 const  cors =require("cors")
+const { verifyToken } = require("./src/Middlewares")
 
 
 const server = express()
@@ -21,13 +22,15 @@ server.get("/",(req,res)=>{
 })
 // server.post("/register",(req,res)=>{
 //     const{ name, phoneNumber ,email } = req.body
-//     const _user = new users(req.body)
+//     const _user = new user(req.body)
 // _user.save()
 //console.log(req.body)
 // })
 
 server.post("/register",register)
 server.post("/login",login)
+server.get("/get-user",verifyToken,findUser)
+
 
 server.listen("3000")
 
