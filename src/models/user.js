@@ -1,43 +1,37 @@
-const bcrypt = require('bcrypt')
-const mongoose = require('mongoose')
-const user = new mongoose.Schema({
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose'); //file jo db connect kr rha h
+
+const user = new mongoose.Schema({ //schema kis type k vale hoga schema means table kis type k hoga 
   name: {
     type: String,
-    required: true
+    required: true,  //validation 
   },
   PhoneNo: {
     type: Number,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
-    //password:{
-      //  type:String,
-     // required:true
-    //}
-  hash_password: {
+  password: {
     type: String,
-    require: true
-  }
-})
-user.virtual('password').set(function (password) {
-  this.hash_password = bcrypt.hashSync(password, 10) // pass hash_password through virtual function
-})
-user.methods = {
-  //methods k ander authenticate naam k function bna hua h
-  authenticate: function (password) {
-    console.log(password)
-    // passing a function we are not creating a function inside authenticate is a function
-    return bcrypt.compareSync(password, this.hash_password) // decrypt the data automatically//kisi data k ander kuch find krna h then use this
-  }
-}
-module.exports = mongoose.model('Users', user) //user is mongoose schema
+    required: true, // Fix the typo here, change 'require' to 'required'
+  },
+});
 
-// {
-//     "name": "Kirti",
-//     "phoneNumber":9508042959,
-//     "email":"kirtipriya1753@gmail.com"
+//user.virtual('password').set(function (password) {
+ // this.hash_password = bcrypt.hashSync(password, 10);
+//});
 
-// }
+//user.methods = {
+  //authenticate: function (password) {
+    //console.log(password);
+    //return bcrypt.compareSync(password, this.hash_password);
+  //},
+//};
+
+module.exports = mongoose.model('User', user); // schema use kr rhe h user naam k table m store kr rhe h 
+/* sbse pehle db connect krne k liye connect method k use hota h 
+fir use hota h mongoose.schema kis kis trah ki fields hogi
+model ka use krte ha jo save krta h mongoose konse  fields s */ 
