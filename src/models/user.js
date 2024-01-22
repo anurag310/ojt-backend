@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose'); //file jo db connect kr rha h
 
-const user = new mongoose.Schema({ //schema kis type k vale hoga schema means table kis type k hoga 
+const user = new mongoose.Schema({ //schema kis type  vale hoga schema means table kis type k hoga 
   name: {
     type: String,
     required: true,  //validation 

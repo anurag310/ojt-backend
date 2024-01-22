@@ -1,0 +1,26 @@
+const mongoose = require("mongoose")
+const form =new mongoose.Schema({
+name :{
+    type:String,
+    required:true
+},
+email: {
+    type: String,
+    required: true
+  },
+  PhoneNo: {
+    type: Number,
+    required: true,
+  },
+  password:{
+    type:String,
+    required:true
+  },
+  message:{
+    type:String,
+
+  }
+
+  })
+module.exports=mongoose.model("form",form)
+    

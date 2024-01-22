@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 var bcrypt = require("bcryptjs"); 
 
-exports.register = async (req, res) => {     // async ka mtlb asynchronous koi b code block na ho jo code tym le rha h vo chlta rhe backend m jb tk uska kaam khtam na ho jata
+exports.register = async (req, res,next) => {     // async ka mtlb asynchronous koi b code block na ho jo code tym le rha h vo chlta rhe backend m jb tk uska kaam khtam na ho jata
    const { name, PhoneNo, email, password } = req.body;  
   //const _user = new User(req.body);
   const _user = new User({   //schema m value store ho rha h req.body vala
@@ -18,9 +18,14 @@ exports.register = async (req, res) => {     // async ka mtlb asynchronous koi b
     const existingUser = await User.findOne({ email }); // async k sath await use hota h mtlb yha ruko
     if (!existingUser) {
       await _user.save();   //save humra method save krta h data  mongodb m
-      return res.status(201).json({ newuser: _user, message: "Account Created" });  //har api k reponse ata 
-    } else {
-      return res.status(400).json({ message: "Account already exists" }); 
+      req.subject="user Registration"
+      req.text="you have successfully signed up"
+
+        next()
+
+     // return res.status(201).json({ newuser: _user, message: "Account Created" });  //har api k reponse ata 
+   // } else {
+     // return res.status(400).json({ message: "Account already exists" }); 
     }  
   } catch (error) {
     return res.status(400).json({ error, message: "Error Occurred" });
@@ -62,3 +67,5 @@ exports.findUser =async(req,res)=>{
   const user = await User.findById(req.id)
   return res.status(200).json({user})
 }
+
+    
