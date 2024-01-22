@@ -21,7 +21,7 @@ exports.sendEmail =(req,res)=>{
                 subject:req.subject,
                 text:req.text,
             }
-            transport.sendMail(data,info) => {
+            transport.sendMail((data,info )=> {
                     if(error){
                         console.log(error);
                         res.status(400).json({message:"email delivery error"})
@@ -30,7 +30,7 @@ exports.sendEmail =(req,res)=>{
                         console.log(info);
                         res.status(200).json({message:"success"})
                     }
-            }
+            })
               
         }catch(error){
         

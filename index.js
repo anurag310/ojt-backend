@@ -7,8 +7,12 @@ const cors = require("cors");
 const { verifyToken, isvalidated, validatedform } = require("./src/Middlewares");
 const {addForm} = require('./src/Controllers/form');
 const { sendEmail } = require('./src/Helper/Email');
+const http =require("http")
+const {Server} = require ("socket.io")
 
 const server = express();
+const app = http.createServer(server)
+const io = new Server(app)
 
 server.use(express.json());
 server.use(cors());
@@ -29,10 +33,32 @@ server.get("/get-user", verifyToken, findUser);
 server.post("/form", validatedform, isvalidated, addForm);
 
 const port = process.env.PORT || 3000;
+io.on("connection",socket =>{
+  console.log("new user connected");
+  socket.on("message",(message,room)=>{
+    console.log(`new message recieved in ${room} and message is ${message}`);
+    socket.to(room).emit("message",message)
+  }) // socket p koi trigger krega toh ye run ho jayega
 
-server.listen(port, () => {
+
+  socket.on("join",(room)=>{ // 2 
+    console.log(room);
+    socket.join(room)
+    socket.emit("joined") // emit msg ko bjehne  e k liye on msg receive krne k liye
+  })
+})
+
+
+
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+
+
+
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log("Database Connected");
