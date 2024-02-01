@@ -17,7 +17,7 @@ exports.register = async (req, res,next) => {     // async ka mtlb asynchronous 
   try {
     const existingUser = await User.findOne({ email }); // async k sath await use hota h mtlb yha ruko
     if (!existingUser) {
-      await _user.save();   //save humra method save krta h data  mongodb m
+      await _user.save();   //sare humra method save krta h data  mongodb m
       req.subject="user Registration"
       req.text="you have successfully signed up"
 

@@ -24,7 +24,8 @@ exports.verifyToken=(req,res,next)=>{
 }
 
 
-exports.validatedform = [
+exports.validatedform = [ //  ye check krta h jo data hum enter kiye h vo schema m h ya nhi
+
         check("name").notEmpty().withMessage("please enter your name"), ///express validator work on it
         check("email").isEmail().withMessage("enter valid email"),
         check("password").isStrongPassword().withMessage("enter 8 digit password"),
@@ -33,8 +34,8 @@ exports.validatedform = [
         
     
 ]
-exports.isvalidated =(req,res,next) => {
-    const errors = validationResult(req)
+exports.isvalidated =(req,res,next) => { // jo data hum dale h  jo check krta h vo validate h ya nhi
+    const errors = validationResult(req)  //callback function
 
 
     if(errors.isEmpty()){
