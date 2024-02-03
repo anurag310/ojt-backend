@@ -27,6 +27,7 @@ server.get("/", (req, res) => {
 
 // Define the POST routes outside the GET callback
 server.post("/register", register,sendEmail);
+// server.post("/register", register);
 server.post("/login", login);
 
 server.get("/get-user", verifyToken, findUser);
