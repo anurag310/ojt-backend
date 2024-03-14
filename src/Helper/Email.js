@@ -13,13 +13,7 @@ exports.sendEmail = (req, res) => {
               pass: "dtke dvym yene hrdl", // Use the App Password generated for your email
             },
           });
-        // const transporter = nodemailer.createTransport({
-        //     service: "gmail",
-        //     auth: {
-        //         user: "anuragbasu402@gmail.com",
-        //         password :"dtke dvym yene hrdl"// Use your Gmail account password or App Password here
-        //     }
-        // });
+       
 
         const mailOptions = {
             from: "anuragbasu402@gmail.com",
@@ -36,7 +30,7 @@ exports.sendEmail = (req, res) => {
                 res.status(400).json({ message: "Email delivery error" });
             } else {
                 console.log("Email sent: " + info.response);
-                res.status(200).json({ message: "Success" });
+                res.status(200).json({ message: "Register Email Sent Successfully!",Status:true, });
             }
         });
     } catch (error) {

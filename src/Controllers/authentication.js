@@ -12,14 +12,15 @@ exports.register = async (req, res,next) => {     // async ka mtlb asynchronous 
     name: req.body.name,
     PhoneNo:req.body.PhoneNo,
     email: req.body.email,
+    role:req.body.role,
     password: bcrypt.hashSync(req.body.password, 8)   //bcrypt module h humara  hashsync  method jo password ko encrypt kr rha h  secuire kitne  round sequre krna h  
   });
   try {
     const existingUser = await User.findOne({ email }); // async k sath await use hota h mtlb yha ruko
     if (!existingUser) {
       await _user.save();   //sare humra method save krta h data  mongodb m
-      req.subject="user Registration"
-      req.text="you have successfully signed up"
+      // req.subject="user Registration"
+      // req.text="you have successfully signed up"
 
         next()
 

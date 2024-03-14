@@ -3,8 +3,10 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const { register, login, findUser } = require("./src/Controllers/authentication");
+
+const {GetRecord,getStudentById,deleteStudentById,updateStudent,addStudent}=require("./src/Controllers/studentcontroller");
 const cors = require("cors");
-const { verifyToken, isvalidated, validatedform } = require("./src/Middlewares");
+const { verifyToken, isvalidated, validatedform,isAdmin } = require("./src/Middlewares");
 const {addForm} = require('./src/Controllers/form');
 const { sendEmail } = require('./src/Helper/Email');
 const http =require("http")
@@ -32,6 +34,13 @@ server.post("/login", login);
 
 server.get("/get-user", verifyToken, findUser);
 server.post("/form", validatedform, isvalidated, addForm);
+
+
+server.get("/student", GetRecord);
+server.get('/student/:id', getStudentById);
+server.delete('/deleteStudent/:id', isAdmin,deleteStudentById);
+server.put('/updateStudent/:id', updateStudent);
+server.post("/addStudent",addStudent);
 
 const port = process.env.PORT || 3000;
 io.on("connection",socket =>{

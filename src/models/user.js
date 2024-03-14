@@ -14,6 +14,11 @@ const user = new mongoose.Schema({ //schema kis type  vale hoga schema means tab
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum:['admin','user'],
+    default:'user'
+  },
   password: {
     type: String,
     required: true, // Fix the typo here, change 'require' to 'required'
