@@ -5,7 +5,7 @@ var bcrypt = require("bcryptjs");
 exports.GetRecord = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1; // Get the page number from query parameters, default to 1 if not provided
-        const limit = parseInt(req.query.limit) || 3; // Get the limit from query parameters, default to 3 if not provided
+        const limit = parseInt(req.query.limit) || 20; // Get the limit from query parameters, default to 3 if not provided
 
         // Calculate the number of documents to skip based on the page and limit
         const skip = (page - 1) * limit;
@@ -81,7 +81,7 @@ exports.addStudent = async(req,res) => {
     name: req.body.name,
     PhoneNo:req.body.PhoneNo,
     email: req.body.email,
-    
+    course:req.body.course,
     password: bcrypt.hashSync(req.body.password, 8)   //bcrypt module h humara  hashsync  method jo password ko encrypt kr rha h  secuire kitne  round sequre krna h  
   });
         const student = await StudentUser.create(_user)

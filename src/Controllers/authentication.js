@@ -13,6 +13,7 @@ exports.register = async (req, res,next) => {     // async ka mtlb asynchronous 
     PhoneNo:req.body.PhoneNo,
     email: req.body.email,
     role:req.body.role,
+    // course:req.body.course,
     password: bcrypt.hashSync(req.body.password, 8)   //bcrypt module h humara  hashsync  method jo password ko encrypt kr rha h  secuire kitne  round sequre krna h  
   });
   try {
