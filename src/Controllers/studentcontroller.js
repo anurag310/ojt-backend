@@ -10,13 +10,21 @@ exports.GetRecord = async (req, res) => {
         // Calculate the number of documents to skip based on the page and limit
         const skip = (page - 1) * limit;
 
-        // Query the database with skip and limit
-        const student = await StudentUser.find({}).sort({ createdAt: -1 })
+        let query = {}; // Define an empty query object
+
+        // Check if role query parameter is provided
+        if (req.query.role) {
+            query.role = req.query.role; // Add role to the query
+        }
+
+        // Query the database with skip, limit, and role filter
+        const student = await StudentUser.find(query)
+            .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
 
         // Get the total count of documents in the collection
-        const totalCount = await StudentUser.countDocuments();
+        const totalCount = await StudentUser.countDocuments(query);
 
         res.status(200).json({
             student,
@@ -26,7 +34,33 @@ exports.GetRecord = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
+// exports.GetRecord = async (req, res) => {
+//     try {
+//         const page = parseInt(req.query.page) || 1; // Get the page number from query parameters, default to 1 if not provided
+//         const limit = parseInt(req.query.limit) || 20; // Get the limit from query parameters, default to 3 if not provided
+
+//         // Calculate the number of documents to skip based on the page and limit
+//         const skip = (page - 1) * limit;
+
+//         // Query the database with skip and limit
+//         const student = await StudentUser.find({}).sort({ createdAt: -1 })
+//             .skip(skip)
+//             .limit(limit);
+
+//         // Get the total count of documents in the collection
+//         const totalCount = await StudentUser.countDocuments();
+
+//         res.status(200).json({
+//             student,
+//             currentPage: page,
+//             totalPages: Math.ceil(totalCount / limit), // Calculate total pages
+//         });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// }
 
 
 exports.getStudentById = async(req,res)=>{
