@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { register, login, findUser } = require("./src/Controllers/authentication");
 
-const {GetRecord,getStudentById,deleteStudentById,updateStudent,addStudent,GetNumberOfStudentsEnrolledByCourse}=require("./src/Controllers/studentcontroller");
+const {GetRecord,getStudentById,deleteStudentById,updateStudent,addStudent,GetNumberOfStudentsEnrolledByCourse,getCountUser}=require("./src/Controllers/studentcontroller");
 const cors = require("cors");
 const { verifyToken, isvalidated, validatedform,isAdmin } = require("./src/Middlewares");
 const {addForm} = require('./src/Controllers/form');
@@ -42,6 +42,8 @@ server.delete('/deleteStudent/:id', isAdmin,deleteStudentById);
 server.put('/updateStudent/:id', updateStudent);
 server.post("/addStudent",addStudent);
 server.get("/enrolledCourses",GetNumberOfStudentsEnrolledByCourse);
+server.get("/getUserCount",getCountUser)
+
 const port = process.env.PORT || 3000;
 io.on("connection",socket =>{
   console.log("new user connected");

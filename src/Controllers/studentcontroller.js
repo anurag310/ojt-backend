@@ -155,3 +155,28 @@ exports.GetNumberOfStudentsEnrolledByCourse = async (req, res) => {
     }
 };
 
+exports.getCountUser = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get the page number from query parameters, default to 1 if not provided
+        const limit = parseInt(req.query.limit) || 20; // Get the limit from query parameters, default to 3 if not provided
+
+        // Calculate the number of documents to skip based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const userCounts = await StudentUser.aggregate([
+            
+            {
+                $group: {
+                    _id: "$role",  // Group by course
+                    count: { $sum: 1 }  // Count the number of documents for each course
+                }
+            }
+        ]);
+
+        res.status(200).json({
+            userCounts,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
